@@ -1,5 +1,5 @@
 /*
-  1. apply the java plugin 
+  1. apply the java plugin
   2. add the 'org.springframework.boot:spring-boot-gradle-plugin:1.4.0.RELEASE' dependency to the classpath configuration in the buildscript dependencies
   3. for the compile configuration add the below dependencies:
     'org.springframework.boot:spring-boot-starter-actuator'
@@ -42,16 +42,16 @@ dependencies {
 }
 
 version = "${Math.abs(new Random().nextInt() % 10000) + 1}"
-group = 'com.nisum.samples.services'
+group = "com.nisum.samples.services.${project.username}"
 
-uploadArchives { 
+uploadArchives {
     repositories {
         maven {
             credentials {
-                username System.getenv('ARTIFACTORY_USERNAME')
-                password System.getenv('ARTIFACTORY_PASSWORD')
+                username "${artifactoryUserName}"
+                password "${artifactoryPassword}"
             }
-            url System.getenv('ARTIFACTORY_URL')
+            url "${artifactoryUrl}"
         }
     }
 }
