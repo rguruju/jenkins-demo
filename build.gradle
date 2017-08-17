@@ -1,0 +1,57 @@
+/*
+  1. apply the java plugin 
+  2. add the 'org.springframework.boot:spring-boot-gradle-plugin:1.4.0.RELEASE' dependency to the classpath configuration in the buildscript dependencies
+  3. for the compile configuration add the below dependencies:
+    'org.springframework.boot:spring-boot-starter-actuator'
+    'org.springframework.boot:spring-boot-starter-thymeleaf'
+  4. for the testCompile configuration add the below dependendencies
+    'org.springframework.boot:spring-boot-starter-test'
+    'org.mockito:mockito-core:1.9.5'
+  5. set the version property to any number
+  6. set the group property to `com.nisum.samples.services`
+  7. set up the uploadArchives task to upload the resultin artifact to Artifactory
+*/
+
+buildscript {
+    repositories {
+        mavenCentral()
+        jcenter()
+    }
+    dependencies {
+        classpath 'org.springframework.boot:spring-boot-gradle-plugin:1.4.0.RELEASE'
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'spring-boot'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+  compile(
+    'org.springframework.boot:spring-boot-starter-actuator',
+    'org.springframework.boot:spring-boot-starter-thymeleaf'
+  )
+
+  testCompile(
+    'org.springframework.boot:spring-boot-starter-test',
+    'org.mockito:mockito-core:1.9.5'
+  )
+}
+
+version = "${Math.abs(new Random().nextInt() % 10000) + 1}"
+group = 'com.nisum.samples.services'
+
+uploadArchives { 
+    repositories {
+        maven {
+            credentials {
+                username System.getenv('ARTIFACTORY_USERNAME')
+                password System.getenv('ARTIFACTORY_PASSWORD')
+            }
+            url System.getenv('ARTIFACTORY_URL')
+        }
+    }
+}
