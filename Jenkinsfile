@@ -2,7 +2,7 @@ pipeline {
   agent {
     label 'vagrant'
   }
-  steps {
+  stages {
     stage('Build') {
       steps {
         git 'https://github.com/rguruju/jenkins-demo.git'
