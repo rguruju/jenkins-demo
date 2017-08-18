@@ -41,7 +41,7 @@ dependencies {
   )
 }
 
-version = "${Math.abs(new Random().nextInt() % 10000) + 1}"
+version = "1.0.${project.buildNumber}"
 group = "com.nisum.samples.services.${project.username}"
 
 uploadArchives {
