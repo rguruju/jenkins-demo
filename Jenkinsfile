@@ -31,6 +31,7 @@ pipeline {
             ssh vagrant@172.28.128.3 'until fgrep -q "Started SpringBootExampleApplication" ./server.log;
             do sleep 1 && echo "."; done'"""
         sh 'ssh vagrant@172.28.128.3 "cat ./server.log"'
+        echo 'Application is running at http://172.28.128.3:8080'
       }
     }
   }
