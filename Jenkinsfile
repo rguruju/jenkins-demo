@@ -27,7 +27,7 @@ pipeline {
         // sh 'sleep 10'
         sh 'scp ./build/libs/hello-service-1.0.${BUILD_NUMBER}.jar vagrant@172.28.128.3:/home/vagrant'
         sh 'ssh vagrant@172.28.128.3 "java -jar /home/vagrant/hello-service-1.0.${BUILD_NUMBER}.jar > ./server.log &"'
-        sh 'sleep 30'
+        sh 'sleep 60'
         sh 'ssh vagrant@172.28.128.3 "cat ./server.log"'
       }
     }
