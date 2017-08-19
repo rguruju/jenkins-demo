@@ -22,7 +22,7 @@ pipeline {
 
     stage('Deploy') {
       steps {
-        sh 'ssh vagrant@172.28.128.3 "pkill -9 -f spring-music && rm -rf *.jar"'
+        sh 'ssh vagrant@172.28.128.3 "rm -rf *.jar || true" "pkill -9 -f hello-service || true"'
         sh 'scp ./build/libs/hello-service-1.0.${BUILD_NUMBER}.jar vagrant@172.28.128.3:/home/vagrant'
         sh 'ssh vagrant@172.28.128.3 "nohup java -jar /home/vagrant/hello-service-1.0.${BUILD_NUMBER}.jar &"'
       }
